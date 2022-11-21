@@ -1,8 +1,7 @@
 <script setup>
-import { useSearchStore } from '../../composables/search';
+import { useSearchStore } from '../../stores/search';
 import { MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
 import { RouterLink } from 'vue-router';
-import { storeToRefs } from 'pinia';
 
 const user = {
     name: 'Sindhiya',
@@ -10,12 +9,11 @@ const user = {
     imageUrl:
         'https://mymodernmet.com/wp/wp-content/uploads/2021/12/Netherlands-Spring-Albert-Dros-1.jpeg',
 }
-const store = useSearchStore()
-const { query, setQuery } = (store)
+
+const queryStore = useSearchStore()
 
 function handle(e) {
-    console.log(e.target.value);
-    setQuery(e.target.value)
+    queryStore.setQuery(e.target.value)
 }
 </script>
 
@@ -44,7 +42,7 @@ function handle(e) {
                             </div>
                             <input id="search" name="search"
                                 class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:border-indigo-500 focus:text-gray-900 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
-                                placeholder="Search" type="search" :value="query" @input="handle" />
+                                placeholder="Search" type="search" :value="queryStore.query" @input="handle" />
                         </div>
                     </div>
                 </div>
